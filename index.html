@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<!--
+    Author: Morgan Vallin
+    StudentID: mova1701
+    Mail: mova1701@student.miun.se
+    -->
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+        <meta charset="UTF-8" />
+        <title>Morgan's TouchTyping</title>
+        <script src="js/main.js"></script>
+    </head>
+
+    <body>
+        <!-- Header with icon and label -->
+        <header>
+            <img src="img/typewriter.png" alt="I <3 TouchTyping">
+            <label id="headerlabel" class="header-label">TouchTyping</label>
+        </header>
+
+        <main>
+            <!-- Dropdown list with the text-options available -->
+            <div class="align-right">
+                <label class="align-center">Choose text</label>
+                <form>
+                    <select id="text"></select>
+                </form>
+            </div>
+
+            <!-- Checkbox to ignore case sensitive -->
+            <form class="align-left">
+                 <input type="checkbox" id="ignorecase" name="ignorecase"> Ignore Casing
+            </form><br><br>
+
+            <!-- Radio buttons with option to have text in swedish/english -->
+            <form class="align-left">
+                <input type="radio" name="language" id="swedish" value="Swedish" checked> Swedish
+                <input type="radio" name="language" id="english" value="English"> English
+            </form><br><br>
+
+            <!-- The text box which gets updated with title, author and text-to-write -->
+            <section class="rounded-border">
+                <h1 id="h1title">Title</h1>
+                <h2 id="h2author">Author</h2>
+                <p id="textToSpeedWrite">Text</p>
+            </section><br>
+
+            <!-- Text area where the user should write after starting the game -->
+            <textarea class="rounded-border" id="writingbox"></textarea><br><br>
+
+            <!-- Button toggle to start/stop the game -->
+            <button type="button" id="startstopbutton"></button><br><br>
+
+            <!-- Statistics section with 4 different stats which gets updated at every keystroke -->
+            <section class="statistics-box">
+                <h1>Statistics</h1>
+                <span id="grosswpm"> Gross WPM: </span>
+                <span id="accuracy"> Accuracy: %</span><br>
+                <span id="netwpm"> Net WPM: </span>
+                <span id="errors"> Errors: </span>
+            </section>
+
+            <!-- A dynamic diagram which shows Net WPM(Words per minute) over time -->
+            <canvas id="speedstatistics">Can't display canvas</canvas>
+        </main>
+
+        <!-- Footer with contact info -->
+        <footer>
+            Copyright © Morgan Vallin. No rights reserved. <br>
+            <a href ="mailto:mova1701@student.miun.se">Contact me!</a>
+        </footer>
+    </body>
+</html>

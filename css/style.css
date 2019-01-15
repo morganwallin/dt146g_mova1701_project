@@ -1,0 +1,132 @@
+body {
+    margin: auto;
+    max-width: 600px;
+    text-align: center;
+    color: white;
+    background-image: url("../img/background.jpg");
+}
+
+header {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+    margin-top: 50px;
+    color: yellowgreen;
+    text-align: center;
+    padding-bottom: 50px;
+    display: block;
+	font-size: 64px;
+
+}
+
+.header-label {
+    animation-name: changeHeader;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes changeHeader {
+    0%   {top: 0px; background: red; width: 200px;}
+    100% {top: 100px; background: yellow; width: 400px;}
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(../font/slkscr.ttf);
+}
+@font-face {
+    font-family: mySecondFont;
+    src: url(../font/slkscreb.ttf);
+}
+
+img {
+    vertical-align: middle;
+}
+
+main{
+    padding-bottom: 50px;
+}
+
+mark {
+    background-color: lightgray;
+}
+
+a {
+    color: white;
+    font-size: 13px;
+}
+
+p {
+    text-align: left;
+    margin-left: 10px;
+}
+
+textarea {
+    color: lightgray;
+    text-align: center;
+}
+
+footer {
+    margin: auto;
+    font-size: 13px;
+    position: relative;
+    color: white;
+    bottom: 0;
+    max-width: 600px;
+    height: 30px;
+    border-top: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+h1 { font-family: mySecondFont;
+     font-size: 24px;
+     font-style: italic;
+}
+
+h2 {
+    font-family: myFirstFont;
+    font-size: 14px;
+    color: yellow;
+    font-style: italic;
+}
+
+
+.rounded-border {
+    border: 2px solid yellow;
+    border-radius: 15px;
+    background-color: black;
+}
+
+.topleft {
+    top: 8px;
+    left: 16px;
+}
+.topright {
+    top: 8px;
+    right: 16px;
+}
+
+.align-right {
+    text-align: right;
+    float: right;
+}
+
+.align-left {
+    text-align: left;
+    float: left;
+}
+
+.align-center {
+    display: block;
+    text-align: center;
+    align-items: center;
+
+}
+
+.statistics-box {
+    width: 300px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+}
