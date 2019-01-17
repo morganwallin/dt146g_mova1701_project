@@ -5,22 +5,17 @@
 
 var textArray = [];
 var gameOn = false;
-var blurred = true;
-var PREFIX = "<mark>";
-var SUFFIX = "</mark>";
 var preSpan = "";
 var postSpan;
 var highlightedChar;
 var startTime;
 var typed_entries = 0;
 var errors = 0;
-var netWPM = 0;
 var x = 5, y = 145, x2, y2;
 
 //Blurs writing box
 function blurWritingBox() {
     "use strict";
-    blurred = true;
     if (document.getElementById("swedish").checked === true) {
         document.getElementById("writingbox").value = "Skriv här...";
     } else {
@@ -83,7 +78,6 @@ function loadTexts() {
 //to get a flying start in the game and not having to first click the play-button and then click the writing box.
 function focusWritingBox() {
     "use strict";
-    blurred = false;
     document.getElementById("writingbox").focus();
     document.getElementById("writingbox").value = "";
 }
@@ -95,12 +89,11 @@ function stopGame() {
     preSpan = "";
     typed_entries = 0;
     errors = 0;
-    netWPM = 0;
     x = 5, y = 145, x2 = 0, y2 = 0;
 }
 
 //Draws the diagram inside the canvas.
-function drawSpeedGauge(elapsed_seconds) {
+function drawSpeedGauge(elapsed_seconds, netWPM) {
     "use strict";
     if(gameOn === false) {
         return;
@@ -141,7 +134,8 @@ function drawSpeedGauge(elapsed_seconds) {
 //Checks which button the user pushed
 function checkCharInput(e) {
     "use strict";
-    var audioError = new Audio('./audio/ding.wav'), keyCode, tmpHighlight, tmpChar, elapsed_minutes, elapsed_seconds, grossWPM;
+    var audioError = new Audio('./audio/ding.wav'), keyCode, tmpHighlight, tmpChar, elapsed_minutes, elapsed_seconds,
+        grossWPM, netWPM;
 
     //Alert player that game is done and stop the game
     if (postSpan.length === 0) {
@@ -151,7 +145,7 @@ function checkCharInput(e) {
     }
 
     //Don't register keys that occurs while game is not live or the text-window is not in focus
-    if (gameOn === false || blurred === true) {
+    if (gameOn === false || document.getElementById("writingbox") !== document.activeElement) {
         return;
     }
 
@@ -201,13 +195,18 @@ function checkCharInput(e) {
         }
     highlightedChar = postSpan.substr(0, 1);
     postSpan = postSpan.substring(1);
-    document.getElementById("textToSpeedWrite").innerHTML = preSpan + PREFIX + highlightedChar + SUFFIX + postSpan;
+    document.getElementById("textToSpeedWrite").innerHTML = preSpan + "<mark>" + highlightedChar + "</mark>" + postSpan;
 
     //Calculate minutes/seconds/WPM
     elapsed_minutes = new Date().getTime() / 60000 - (startTime.getTime() / 60000);
     elapsed_seconds = elapsed_minutes*60;
     grossWPM = ((typed_entries / 5) / elapsed_minutes);
-    netWPM = grossWPM - (errors / 5 / elapsed_minutes);
+    netWPM = grossWPM - (errors / elapsed_minutes);
+
+    if(netWPM < 0)
+    {
+        netWPM = 0;
+    }
 
     //Print statistics
     document.getElementById("grosswpm").innerHTML = "Gross WPM: " + Math.round(grossWPM);
@@ -216,7 +215,7 @@ function checkCharInput(e) {
     document.getElementById("errors").innerHTML = "Errors: " + errors;
 
     //Draw statistics line
-    drawSpeedGauge(elapsed_seconds);
+    drawSpeedGauge(elapsed_seconds, netWPM);
 }
 
 //Start the game. This is triggered when the 'play'-button is pressed
@@ -227,7 +226,7 @@ function playGame() {
     postSpan = document.getElementById("textToSpeedWrite").innerHTML;
     highlightedChar  = postSpan.substr(0, 1);
     postSpan = postSpan.substring(1);
-    document.getElementById("textToSpeedWrite").innerHTML = preSpan + PREFIX + highlightedChar + SUFFIX + postSpan;
+    document.getElementById("textToSpeedWrite").innerHTML = preSpan + "<mark>" + highlightedChar + "</mark>" + postSpan;
     gameOn = true;
 
     //Set starting time to the time the button was pressed
